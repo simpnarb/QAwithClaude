@@ -1,0 +1,23 @@
+[
+  {
+    "id": "8e5b9f22-9b29-44c6-b330-a5ea392b82f1",
+    "email": "test@example.com",
+    "name": "Test User",
+    "password": "$2a$10$lmQi/sUYsZA8lOTYdRZzcukDDIBfq2BaQRjdBeBsq1Fp8G4nlBoTi",
+    "cart": [
+      {
+        "productId": "1",
+        "quantity": 1
+      }
+    ],
+    "createdAt": "2026-05-26T23:04:08.424Z"
+  },
+  {
+    "id": "c214f604-2f39-4160-9265-e7fe3338c3c3",
+    "email": "seantest@gmail.com",
+    "name": "Testing",
+    "password": "$2a$10$06OgBAQ22vsxRSkK0EzYnesvLP2n/jbS4/lWMlTKB7I9E9LKqqMzi",
+    "cart": [],
+    "createdAt": "2026-05-26T23:25:11.752Z"
+  }
+]

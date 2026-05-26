@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — ShopSimple</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="/index.html">ShopSimple</a>
+    <div class="nav-links" id="nav-links"></div>
+  </nav>
+
+  <main>
+    <div class="form-card" id="login-card">
+      <h2>Sign In</h2>
+      <div id="error-msg" class="alert alert-error hidden"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn btn-primary form-full" id="login-btn">Sign In</button>
+      </form>
+      <p class="form-switch">Don't have an account? <a href="#" id="switch-to-register">Create one</a></p>
+    </div>
+
+    <div class="form-card hidden" id="register-card">
+      <h2>Create Account</h2>
+      <div id="reg-error-msg" class="alert alert-error hidden"></div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="reg-name" placeholder="Jane Doe" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="reg-email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="reg-password" placeholder="Min. 6 characters" required minlength="6" />
+        </div>
+        <button type="submit" class="btn btn-primary form-full" id="reg-btn">Create Account</button>
+      </form>
+      <p class="form-switch">Already have an account? <a href="#" id="switch-to-login">Sign in</a></p>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script>
+    async function init() {
+      const user = await apiFetch('/api/auth/me').catch(() => null);
+      if (user) { window.location.href = '/index.html'; return; }
+      loadNav();
+    }
+
+    document.getElementById('switch-to-register').addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('login-card').classList.add('hidden');
+      document.getElementById('register-card').classList.remove('hidden');
+    });
+
+    document.getElementById('switch-to-login').addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('register-card').classList.add('hidden');
+      document.getElementById('login-card').classList.remove('hidden');
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('login-btn');
+      const err = document.getElementById('error-msg');
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      err.classList.add('hidden');
+
+      try {
+        await apiFetch('/api/auth/login', {
+          method: 'POST',
+          body: { email: document.getElementById('email').value, password: document.getElementById('password').value }
+        });
+        window.location.href = '/index.html';
+      } catch (ex) {
+        err.textContent = ex.message;
+        err.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      }
+    });
+
+    document.getElementById('register-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('reg-btn');
+      const err = document.getElementById('reg-error-msg');
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+      err.classList.add('hidden');
+
+      try {
+        await apiFetch('/api/auth/register', {
+          method: 'POST',
+          body: {
+            name: document.getElementById('reg-name').value,
+            email: document.getElementById('reg-email').value,
+            password: document.getElementById('reg-password').value
+          }
+        });
+        window.location.href = '/index.html';
+      } catch (ex) {
+        err.textContent = ex.message;
+        err.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>

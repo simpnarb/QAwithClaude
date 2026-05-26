@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order History — ShopSimple</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="/index.html">ShopSimple</a>
+    <div class="nav-links" id="nav-links"></div>
+  </nav>
+
+  <main>
+    <div class="section-title">Order History</div>
+    <div id="orders-content">
+      <div style="color:var(--muted);font-size:.9rem">Loading orders...</div>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script>
+    async function init() {
+      const user = await apiFetch('/api/auth/me').catch(() => null);
+      if (!user) { window.location.href = '/login.html'; return; }
+      await loadNav();
+      const orders = await apiFetch('/api/orders').catch(() => []);
+      renderOrders(orders);
+    }
+
+    function renderOrders(orders) {
+      const container = document.getElementById('orders-content');
+      if (!orders.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">📦</div>
+            <h3>No orders yet</h3>
+            <p>Your completed orders will appear here.</p>
+            <a href="/index.html" class="btn btn-primary">Start Shopping</a>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = orders.map(order => `
+        <div class="order-card">
+          <div class="order-header">
+            <div>
+              <div style="font-weight:600;margin-bottom:.2rem">Order #${order.id.slice(0, 8).toUpperCase()}</div>
+              <div class="order-date">${new Date(order.createdAt).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' })}</div>
+            </div>
+            <span class="order-status">${order.status}</span>
+          </div>
+
+          <div class="order-items">
+            ${order.items.map(item => `
+              <div class="order-item-row">
+                <span>${item.image} ${item.name} × ${item.quantity}</span>
+                <span>$${item.subtotal.toFixed(2)}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="order-total">
+            <span>Total</span>
+            <span>$${order.total.toFixed(2)}</span>
+          </div>
+          <div class="order-address">Ships to: ${order.address.replace(/\n/g, ', ')}</div>
+        </div>
+      `).join('');
+    }
+
+    init();
+  </script>
+</body>
+</html>

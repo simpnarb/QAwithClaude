@@ -1,0 +1,10 @@
+[
+  { "id": "1", "name": "Wireless Headphones", "price": 79.99, "image": "🎧", "category": "Electronics", "description": "Premium sound with noise cancellation." },
+  { "id": "2", "name": "Mechanical Keyboard", "price": 129.99, "image": "⌨️", "category": "Electronics", "description": "Tactile switches, RGB backlit." },
+  { "id": "3", "name": "USB-C Hub", "price": 39.99, "image": "🔌", "category": "Electronics", "description": "7-in-1 hub with HDMI, USB, SD card." },
+  { "id": "4", "name": "Ergonomic Mouse", "price": 59.99, "image": "🖱️", "category": "Electronics", "description": "Reduces wrist strain, silent clicks." },
+  { "id": "5", "name": "Laptop Stand", "price": 34.99, "image": "💻", "category": "Accessories", "description": "Adjustable aluminum stand." },
+  { "id": "6", "name": "Desk Lamp", "price": 44.99, "image": "💡", "category": "Accessories", "description": "LED with touch dimming, USB charging port." },
+  { "id": "7", "name": "Cable Organizer", "price": 12.99, "image": "🗂️", "category": "Accessories", "description": "Keeps your desk tidy." },
+  { "id": "8", "name": "Webcam HD", "price": 89.99, "image": "📷", "category": "Electronics", "description": "1080p with built-in mic and auto-focus." }
+]

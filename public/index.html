@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopSimple</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="/index.html">ShopSimple</a>
+    <div class="nav-links" id="nav-links"></div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <h1>Welcome to ShopSimple</h1>
+      <p>Quality products, simple shopping experience.</p>
+    </div>
+
+    <div class="section-title">All Products</div>
+    <div class="product-grid" id="product-grid">
+      <div style="color:var(--muted);font-size:.9rem">Loading products...</div>
+    </div>
+  </main>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    let currentUser = null;
+
+    async function init() {
+      await loadNav();
+      currentUser = await apiFetch('/api/auth/me').catch(() => null);
+      const products = await apiFetch('/api/products');
+      renderProducts(products);
+    }
+
+    function renderProducts(products) {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = products.map(p => `
+        <div class="product-card">
+          <div class="product-emoji">${p.image}</div>
+          <div>
+            <span class="product-category">${p.category}</span>
+          </div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-desc">${p.description}</div>
+          <div class="product-footer">
+            <span class="product-price">$${p.price.toFixed(2)}</span>
+            <button class="btn btn-primary btn-sm" onclick="addToCart('${p.id}', '${p.name}')">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function addToCart(productId, name) {
+      if (!currentUser) {
+        window.location.href = '/login.html';
+        return;
+      }
+      try {
+        await apiFetch('/api/cart/add', { method: 'POST', body: { productId, quantity: 1 } });
+        toast(`${name} added to cart`);
+        await updateCartCount();
+      } catch (e) {
+        toast(e.message);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType Directory -Force \"m:\\\\QAwithClaude\\\\public\\\\css\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"m:\\\\QAwithClaude\\\\public\\\\js\")",
+      "PowerShell($body = '{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"password123\"}'; $res = Invoke-WebRequest -Uri \"http://localhost:3000/api/auth/register\" -Method POST -Body $body -ContentType \"application/json\" -UseBasicParsing -SessionVariable s; Write-Output \"Register: $\\($res.StatusCode\\)\"; $cart = Invoke-WebRequest -Uri \"http://localhost:3000/api/cart/add\" -Method POST -Body '{\"productId\":\"1\",\"quantity\":1}' -ContentType \"application/json\" -UseBasicParsing -WebSession $s; Write-Output \"Add to cart: $\\($cart.StatusCode\\)\")"
+    ]
+  }
+}
