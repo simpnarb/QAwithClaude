@@ -19,5 +19,82 @@
     "password": "$2a$10$06OgBAQ22vsxRSkK0EzYnesvLP2n/jbS4/lWMlTKB7I9E9LKqqMzi",
     "cart": [],
     "createdAt": "2026-05-26T23:25:11.752Z"
+  },
+  {
+    "id": "1b81ef3c-6e2e-48f6-9e86-4ecd05fe2254",
+    "email": "test@testmail.com",
+    "name": "Daboi",
+    "password": "$2a$10$B3110kM9mJdbD.moETuEveKA12INCo.S5odujCearaSSO64ybUs6O",
+    "cart": [],
+    "createdAt": "2026-05-27T01:14:02.885Z"
+  },
+  {
+    "id": "f531e658-b985-48bf-85d1-4bee05d044a6",
+    "email": "iiii@gmail.com",
+    "name": "test 4",
+    "password": "$2a$10$R.KL9zf2JLIw5SJNn1mtDufVkONJN/850e2M2K4nnaeLDds8FKbHC",
+    "cart": [],
+    "createdAt": "2026-05-27T01:30:15.705Z"
+  },
+  {
+    "id": "6a25e6bf-e2cb-4022-a58f-aabbce37612d",
+    "email": "sean.narbonita+4@miquido.com",
+    "name": "test 4",
+    "password": "$2a$10$hQMXkAxWkDm.bLkAGqXRmeIoXKC7CBEPGwkq4e38ms6AosG/IkHW.",
+    "cart": [],
+    "createdAt": "2026-05-27T01:31:04.093Z"
+  },
+  {
+    "id": "7df68830-75a0-4782-ba15-a3442b88839f",
+    "email": "sean.narbonita+5@miquido.com",
+    "name": "test6",
+    "password": "$2a$10$9DAGfBtwyTfwCkFwndbIlOsaGKzk6KACjeVYGrv7rsRtL9xCKEBh.",
+    "cart": [],
+    "createdAt": "2026-05-27T01:32:40.712Z"
+  },
+  {
+    "id": "bf734758-064a-4e48-bc80-f8305c6d971a",
+    "email": "test@test.com",
+    "name": "Testidk",
+    "password": "$2a$10$QY6Wku.EUh/Pc7PGlixQaOOM3Ld3dQxQ9L.z2UyvNlNOkwYL6Jdnu",
+    "cart": [
+      {
+        "productId": "8",
+        "quantity": 1
+      }
+    ],
+    "createdAt": "2026-05-27T02:05:48.630Z"
+  },
+  {
+    "id": "a267ec0a-0da8-4876-b55c-72a7c2f6dae9",
+    "email": "test.user.1779848771623@example.com",
+    "name": "Test User 1779848771623",
+    "password": "$2a$10$UvtBqE0akTxxlGnpUOtWTuBODwGFKOv5j7M9STon9MdvsYIr.f91O",
+    "cart": [],
+    "createdAt": "2026-05-27T02:26:12.193Z"
+  },
+  {
+    "id": "cb8bb0a0-18fd-451f-89cc-910ec9079de5",
+    "email": "test.user.1779848859054@example.com",
+    "name": "Test User 1779848859054",
+    "password": "$2a$10$tOTa1saoslntupCSamkj.OziO2wAyDvUru.5oAWL81CznwEu53Piu",
+    "cart": [],
+    "createdAt": "2026-05-27T02:27:39.321Z"
+  },
+  {
+    "id": "a9da98c1-2711-4c96-8b0c-a6d0b01d8dd1",
+    "email": "test.user.1779848860717@example.com",
+    "name": "Test User 1779848860717",
+    "password": "$2a$10$qbxmrknXhMbxlPyHtOOyaeVHDPtuq4PcZ8dtz7NMxTkjtq1/lm1Iq",
+    "cart": [],
+    "createdAt": "2026-05-27T02:27:41.569Z"
+  },
+  {
+    "id": "0fad8505-cda8-4726-a83c-47c7793b08cb",
+    "email": "test.user.1779848861009@example.com",
+    "name": "Test User 1779848861009",
+    "password": "$2a$10$JcrY9ab1/Dv0L5XUqDz8y.QKnBAV/3y0RgonDkh/9Qw2FfFXHwwCK",
+    "cart": [],
+    "createdAt": "2026-05-27T02:27:41.938Z"
   }
 ]

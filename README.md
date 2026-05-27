@@ -25,6 +25,7 @@ A lightweight, full-stack e-commerce web app built with Node.js, Express, and va
 | Storage | JSON flat files |
 | Frontend | Vanilla HTML / CSS / JavaScript |
 | Testing | Playwright (`@playwright/test`) |
+| Reporting | Allure (`allure-playwright`) + GitHub Pages |
 
 ---
 
@@ -34,6 +35,10 @@ A lightweight, full-stack e-commerce web app built with Node.js, Express, and va
 QAwithClaude/
 ├── server.js               # Express API server
 ├── package.json
+├── playwright.config.ts    # Playwright + Allure reporter config
+├── .github/
+│   └── workflows/
+│       └── playwright.yml  # CI: run tests and publish Allure report to GitHub Pages
 ├── data/
 │   ├── products.json       # Product catalog (static seed data)
 │   ├── users.json          # Registered users (bcrypt passwords + cart state)
@@ -114,6 +119,125 @@ npx playwright test
 To run with the browser visible:
 ```bash
 npx playwright test --headed
+```
+
+---
+
+## Allure Reporting
+
+Test results are published as an [Allure](https://allurereport.org/) report to **GitHub Pages** automatically on every push to `main`.
+
+### Setup
+
+**1. Install the Allure Playwright reporter:**
+```bash
+npm install --save-dev allure-playwright
+```
+
+**2. Configure `playwright.config.ts` to use the Allure reporter:**
+```ts
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  reporter: [
+    ['list'],
+    ['allure-playwright', { outputFolder: 'allure-results' }]
+  ],
+});
+```
+
+**3. Enable GitHub Pages** in your repository:
+- Go to **Settings → Pages**
+- Set the source to **GitHub Actions**
+
+### GitHub Actions Workflow
+
+The workflow at `.github/workflows/playwright.yml` runs on every push to `main`:
+
+1. Starts the ShopSimple server
+2. Runs the full Playwright test suite
+3. Generates the Allure HTML report
+4. Publishes it to GitHub Pages
+
+```yaml
+name: Playwright Tests
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Start server
+        run: node server.js &
+        env:
+          PORT: 3000
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Generate Allure report
+        if: always()
+        run: npx allure generate allure-results --clean -o allure-report
+
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
+
+  deploy:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+### Viewing the Report Locally
+
+To generate and open the report on your machine:
+
+```bash
+npx playwright test
+npx allure generate allure-results --clean -o allure-report
+npx allure open allure-report
+```
+
+> **Note:** The Allure CLI must be installed. You can install it with `npm install -g allure-commandline` or use the bundled `npx allure` wrapper above.
+
+### Live Report
+
+Once the workflow runs, the report is available at:
+```
+https://<your-github-username>.github.io/<your-repo-name>/
 ```
 
 ---
