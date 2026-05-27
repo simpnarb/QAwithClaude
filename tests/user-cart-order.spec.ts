@@ -23,7 +23,7 @@ test('Validate creation of user, add to cart and order history', async ({ page }
   await expect(registerButton).toHaveText('Account Created');
   await expect(registerButton).toBeDisabled();
 
-  const successAlert = page.getByTestId('reg-success-msg');
+  const successAlert = page.getByTestId('reg-success-m');
   await expect(successAlert).toBeVisible();
   await expect(successAlert).toHaveText('Account created! Redirecting you to the shop...');
 
