@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5590","Validate creation of user, add to cart and order history","firefox","Wed May 27 03:15:57 UTC 2026","passed","Wed May 27 03:16:02 UTC 2026","","user-cart-order.spec.ts","",""
+"","11665","Validate creation of user, add to cart and order history","webkit","Wed May 27 03:16:04 UTC 2026","passed","Wed May 27 03:16:15 UTC 2026","","user-cart-order.spec.ts","",""
+"","4157","Validate creation of user, add to cart and order history","chromium","Wed May 27 03:15:52 UTC 2026","passed","Wed May 27 03:15:56 UTC 2026","","user-cart-order.spec.ts","",""
